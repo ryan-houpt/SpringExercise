@@ -18,7 +18,7 @@ public class MathController {
             Answer += (number1 + number2);
         }
         if (math.equals("subtract") && next.equals("from")) {
-            Answer += (number1 - number2);
+            Answer += (number2 - number1);
         }
         if (math.equals("multiply") && next.equals("and")) {
             Answer += (number1 * number2);
@@ -27,6 +27,22 @@ public class MathController {
             Answer += (number1 / number2);
         }
         return Answer;
+    }
+
+    @GetMapping("roll-dice/{number}")
+    @ResponseBody
+    public String rollDice(@PathVariable int number) {
+
+        double randomNumber = Math.floor(Math.random() * 6) + 1;
+        String answer = "";
+
+        if (randomNumber > number) {
+            answer = "lower";
+        } else {
+            answer = "higher";
+        }
+
+        return "Your number is " + number + " and the random number is " + randomNumber + ". It looks like your guess was " + answer;
     }
 
 }
