@@ -1,16 +1,28 @@
 package com.codeup.demo;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Post")
 public class Post {
 
-    private String title;
-    private String body;
-    private static Post[] posts = {
-            new Post ("bob", "This is a bob post"),
-            new Post ("joe", "this is a joe post")
-    };
 
-    public static Post[] getAllPosts() {
-        return posts;
+    @Column (nullable = false)
+    private String title;
+
+    @Column (nullable = false)
+    private String body;
+
+    @Id @GeneratedValue
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn (name = "post_id")
+    private User user;
+
+
+    public Post() {
+
     }
 
     public Post(String title, String body) {
@@ -32,5 +44,13 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+   public Long getId() {
+        return id;
+   }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
